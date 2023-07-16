@@ -10,4 +10,4 @@ GAME=$1
 
 
 echo "launch dopamine"
-sbatch -J IQN_dopamine --array=1-5 --cpus-per-task=2 --mem-per-cpu=30G --time=3-00:00:00 --output=experiments/IQN/$GAME/%a/logs.out --gres=gpu:1 -p gpu launch_docker.sh source run_dopamine.sh $GAME
+sbatch -J IQN_dopamine --array=2-2 --cpus-per-task=6 --mem-per-cpu=10G --time=3-00:00:00 --output=experiments/IQN/$GAME/%a/logs.out --gres=gpu:1 -p gpu launch_docker.sh source run_dopamine.sh $GAME

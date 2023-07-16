@@ -1,3 +1,5 @@
+#!/bin/bash
+
 source env/bin/activate
 
 export XLA_PYTHON_CLIENT_MEM_FRACTION=0.89
