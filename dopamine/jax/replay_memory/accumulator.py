@@ -72,14 +72,15 @@ class TransitionAccumulator(Accumulator[elements.ReplayElement]):
 
     last_transition = self._trajectory[-1]
     # Check if we have a valid transition, i.e. we either
-    #   1) have accumulated more transitions than the update horizon
+    #   1) have accumulated more transitions than the update horizon and the
+    #      last element is not terminal
     #   2) have a trajectory shorter than the update horizon, but the
-    #      last element is terminal
+    #      last element is terminal and we have enough frames to stack
     if not (
-        trajectory_len > self._update_horizon
-        or (trajectory_len > 1 and last_transition.is_terminal)
+        (trajectory_len > self._update_horizon and not last_transition.is_terminal)
+        or (trajectory_len > self._stack_size and last_transition.is_terminal)
     ):
-      return None
+        return None
 
     # Calculate effective horizon, this can differ from the update horizon
     # when we have n-step transitions where the last observation is terminal.
